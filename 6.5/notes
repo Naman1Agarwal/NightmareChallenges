@@ -1,0 +1,182 @@
+void main(void)
+
+{
+  uint __seed;
+  size_t sVar1;
+  int iVar2;
+  char *__s;
+  char acStack_2f [31];
+  undefined *puStack_10;
+  
+  puStack_10 = &stack0x00000004;
+  __seed = time((time_t *)0x0);
+  srand(__seed);
+  puts("We\'re going to count numbers, starting from one and");
+  puts("counting all the way up to the flag!");
+  puts("Are you ready? Go!");
+  while( true ) {
+    incr_flag();
+    printf("> ");
+    fflush(_stdout);
+    fgets(acStack_2f + 1,0x1e,_stdin);
+    if (acStack_2f[1] != '\0') {
+      sVar1 = strlen(acStack_2f + 1);
+      if (acStack_2f[sVar1] < ' ') {
+        sVar1 = strlen(acStack_2f + 1);
+        acStack_2f[sVar1] = '\0';
+      }
+    }
+    iVar2 = strcmp(acStack_2f + 1,&flag_buf);
+    if (iVar2 != 0) break;
+    __s = (char *)get_compliment();
+    puts(__s);
+    check_flag();
+  }
+  printf("No, the correct number is %s.\n",&flag_buf);
+  puts("But I believe in you. Let\'s try again sometime!");
+                    /* WARNING: Subroutine does not return */
+  exit(1);
+}
+
+
+void incr_flag(void)
+
+{
+  size_t sVar1;
+  size_t local_10;
+  
+  local_10 = strlen(&flag_buf);
+  while( true ) {
+    if ((int)local_10 < 1) {
+      sVar1 = strlen(&flag_buf);
+      if (sVar1 != 0x13) {
+        sVar1 = strlen(&flag_buf);
+        (&flag_buf)[sVar1] = 0x30;
+        flag_buf = 0x31;
+        return;
+      }
+                    /* WARNING: Subroutine does not return */
+      exit(2);
+    }
+    if (*(char *)((int)&__dso_handle + local_10 + 3) != '9') break;
+    *(undefined *)((int)&__dso_handle + local_10 + 3) = 0x30;
+    local_10 = local_10 - 1;
+  }
+  *(char *)((int)&__dso_handle + local_10 + 3) =
+       *(char *)((int)&__dso_handle + local_10 + 3) + '\x01';
+  return;
+}
+
+undefined4 get_compliment(void)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  int local_10;
+  
+  if (DAT_00013049 == '\0') {
+    local_10 = 0x26;
+  }
+  else {
+    local_10 = 0x30;
+  }
+  iVar1 = rand();
+  iVar1 = iVar1 % local_10;
+  if (iVar1 < 0x26) {
+    uVar2 = *(undefined4 *)(compliments + (iVar1 / 2) * 4);
+  }
+  else {
+    uVar2 = *(undefined4 *)(weird_compliments + (iVar1 + -0x26) * 4);
+  }
+  return uVar2;
+}
+
+void check_flag(void)
+
+{
+  char cVar1;
+  uint uVar2;
+  uint uVar3;
+  uint uVar4;
+  uint uVar5;
+  uint uVar6;
+  uint uVar7;
+  uint uVar8;
+  ulonglong uVar9;
+  ulonglong uVar10;
+  ulonglong uVar11;
+  ulonglong uVar12;
+  longlong lVar13;
+  int local_20;
+  
+  local_20 = 0;
+  while( true ) {
+    if (0x13 < local_20) {
+      printf("PCTF{%s}\n",&flag_buf);
+                    /* WARNING: Subroutine does not return */
+      exit(0);
+    }
+    cVar1 = (&flag_buf)[local_20];
+    uVar4 = (int)cVar1 & 3;
+    uVar5 = (int)(cVar1 >> 2) & 3;
+    uVar6 = (int)(cVar1 >> 4) & 0xf;
+    uVar9 = rol(uVar4 + 0xa55aa559,(0x5aa55aa6 < uVar4) + 0xa55a,2);
+    uVar2 = uVar5 - (uint)uVar9;
+    uVar10 = rol(uVar2 + 0xa55aa559,
+                 (-(uint)(uVar5 < (uint)uVar9) - (int)(uVar9 >> 0x20)) + 0xa55a +
+                 (uint)(0x5aa55aa6 < uVar2),0xd);
+    uVar3 = (uint)(uVar10 >> 0x20);
+    uVar2 = (uint)uVar10;
+    uVar11 = rol((uVar6 - uVar2) + 0xa55aa559,
+                 (-(uint)(uVar6 < uVar2) - uVar3) + 0xa55a + (uint)(0x5aa55aa6 < uVar6 - uVar2),0x11
+                );
+    uVar7 = (uint)(uVar11 >> 0x20);
+    uVar12 = uVar10 ^ uVar9 ^ uVar11;
+    lVar13 = uVar9 + CONCAT44((uint)((uVar11 & uVar12) >> 0x20) | ~(uint)(uVar12 >> 0x20) & uVar3,
+                              (uint)(uVar11 & uVar12) | ~(uint)uVar12 & uVar2);
+    uVar2 = (uint)lVar13;
+    uVar3 = uVar6 + uVar2;
+    uVar9 = rol(uVar3 + 0xf01f83c6,
+                (int)((ulonglong)lVar13 >> 0x20) + (uint)CARRY4(uVar6,uVar2) + 0xf +
+                (uint)(0xfe07c39 < uVar3),3);
+    uVar8 = (uint)(uVar9 >> 0x20);
+    lVar13 = uVar10 + CONCAT44((uint)((uVar9 & uVar12) >> 0x20) | ~uVar8 & uVar7,
+                               (uint)(uVar9 & uVar12) | ~(uint)uVar9 & (uint)uVar11);
+    uVar2 = (uint)lVar13;
+    uVar3 = uVar4 + uVar2;
+    uVar10 = rol(uVar3 + 0xf01f83c6,
+                 (int)((ulonglong)lVar13 >> 0x20) + (uint)CARRY4(uVar4,uVar2) + 0xf +
+                 (uint)(0xfe07c39 < uVar3),0xb);
+    lVar13 = uVar12 + CONCAT44((uint)((uVar11 & uVar10) >> 0x20) | ~uVar7 & uVar8,
+                               (uint)(uVar11 & uVar10) | ~(uint)uVar11 & (uint)uVar9);
+    uVar2 = (uint)lVar13;
+    uVar3 = uVar5 + uVar2;
+    uVar12 = rol(uVar3 + 0xf01f83c6,
+                 (int)((ulonglong)lVar13 >> 0x20) + (uint)CARRY4(uVar5,uVar2) + 0xf +
+                 (uint)(0xfe07c39 < uVar3),0x13);
+    lVar13 = uVar9 + (uVar12 ^ uVar11 ^ uVar10);
+    uVar2 = (uint)lVar13;
+    uVar3 = uVar5 + uVar2;
+    uVar9 = rol(uVar3 + 0x867b8ca6,
+                (int)((ulonglong)lVar13 >> 0x20) + (uint)CARRY4(uVar5,uVar2) + 0xb744 +
+                (uint)(0x79847359 < uVar3),5);
+    lVar13 = uVar11 + (uVar10 ^ uVar9 ^ uVar12);
+    uVar2 = (uint)lVar13;
+    uVar3 = uVar4 + uVar2;
+    uVar11 = rol(uVar3 + 0x867b8ca6,
+                 (int)((ulonglong)lVar13 >> 0x20) + (uint)CARRY4(uVar4,uVar2) + 0xb744 +
+                 (uint)(0x79847359 < uVar3),7);
+    lVar13 = uVar12 + (uVar11 ^ uVar10 ^ uVar9);
+    uVar2 = (uint)lVar13;
+    uVar3 = uVar6 + uVar2;
+    lVar13 = rol(uVar3 + 0x867b8ca6,
+                 (int)((ulonglong)lVar13 >> 0x20) + (uint)CARRY4(uVar6,uVar2) + 0xb744 +
+                 (uint)(0x79847359 < uVar3),0x17);
+    lVar13 = uVar10 + uVar11 + uVar9 + lVar13;
+    uVar2 = (uint)lVar13 ^ (uint)((ulonglong)lVar13 >> 0x20);
+    uVar2 = uVar2 ^ uVar2 >> 0x10;
+    if (check_buf[local_20] != (byte)((byte)uVar2 ^ (byte)(uVar2 >> 8))) break;
+    local_20 = local_20 + 1;
+  }
+  return;
+}

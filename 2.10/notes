@@ -1,0 +1,10 @@
+void processEntry entry(undefined8 param_1,undefined8 param_2)
+
+{
+  undefined auStack_8 [8];
+  
+  FUN_00400ea0(main,param_2,&stack0x00000008,FUN_00401900,FUN_004019a0,param_1,auStack_8);
+  do {
+                    /* WARNING: Do nothing block with infinite loop */
+  } while( true );
+}

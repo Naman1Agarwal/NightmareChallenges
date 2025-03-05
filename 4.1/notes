@@ -1,0 +1,12 @@
+
+len = howLong + idxOfRange
+
+buffer starts at 0xffffccc8
+saved eip is 0x08049841 at 0xffffcedc
+- canary is 0xfab2b400 at 0xffffcecc
+
+
+- keep the canary
+- make the ret addr the buffer addr
+- put the shell code
+- 
