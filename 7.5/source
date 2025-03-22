@@ -1,0 +1,66 @@
+
+void main(void)
+
+{
+  setvbuf((FILE *)stdin,(char *)0x0,2,0);
+  setvbuf((FILE *)stdout,(char *)0x0,2,0);
+  puts("All you need to pwn nowadays is a leak and a qword write they say...");
+  do_leak();
+  return;
+}
+
+
+void do_leak(void)
+
+{
+  long lVar1;
+  undefined auStack_18 [8];
+  code *local_10;
+  
+  local_10 = do_leak;
+  puts("What do you want to leak ?");
+  puts("1. stack");
+  puts("2. pie");
+  printf(" > ");
+  lVar1 = read_int();
+  if (lVar1 == 1) {
+    printf("%p\n",auStack_18);
+  }
+  else if (lVar1 == 2) {
+    printf("%p\n",local_10);
+  }
+  else {
+    puts("Nope");
+  }
+  do_overwrite();
+  return;
+}
+
+
+
+void do_overwrite(void)
+
+{
+  void *__buf;
+  
+  printf("address : ");
+  __buf = (void *)read_int();
+  printf("data : ");
+  read(0,__buf,8);
+  return;
+}
+
+
+long read_int(void)
+
+{
+  long lVar1;
+  char acStack_18 [24];
+  
+  read(0,acStack_18,0xf);
+  lVar1 = atol(acStack_18);
+  return lVar1;
+}
+
+
+
