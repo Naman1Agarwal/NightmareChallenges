@@ -1,0 +1,63 @@
+
+void ret2win(undefined8 param_1,undefined8 param_2,ulong param_3)
+
+{
+  ulong local_28;
+  undefined8 local_20;
+  undefined2 local_18;
+  long local_10;
+  
+  local_20 = 0xd5bed0dddfd28920;
+  local_18 = 0xaa;
+  local_28 = param_3 ^ 0xaacca9d1d4d7dcc0;
+  local_10 = (long)&local_20 + 1;
+  system((char *)&local_28);
+  return;
+}
+
+void pwnme(void)
+
+{
+  undefined local_28 [32];
+  
+  memset(local_28,0,0x20);
+  puts("Call ret2win()");
+  puts("The third argument (rdx) must be 0xdeadcafebabebeef");
+  puts(&DAT_00400924);
+  printf(&DAT_00400925);
+  PTR_puts_00601018 = (undefined *)0x0;
+  PTR_printf_00601028 = (undefined *)0x0;
+  PTR_memset_00601030 = (undefined *)0x0;
+  fgets(local_28,0xb0,stdin);
+  PTR_fgets_00601038 = (undefined *)0x0;
+  return;
+}
+
+
+undefined8 main(void)
+
+{
+  FUN_004005e0(stdout,0,2,0);
+  puts("ret2csu by ROP Emporium\n");
+  pwnme();
+  return 0;
+}
+
+
+'''
+        00400880 4c 89 fa        MOV        RDX,R15
+        00400883 4c 89 f6        MOV        RSI,R14
+        00400886 44 89 ef        MOV        EDI,R13D
+        00400889 41 ff 14 dc     CALL       qword ptr [R12 + RBX*0x8]=>->frame_dummy         
+'''
+'''
+        0040089a 5b              POP        RBX
+        0040089b 5d              POP        RBP
+        0040089c 41 5c           POP        R12
+        0040089e 41 5d           POP        R13
+        004008a0 41 5e           POP        R14
+        004008a2 41 5f           POP        R15
+        004008a4 c3              RET
+'''
+
+I have the source code above and the goal is try to get ret2win called. I found these 2 gadgets above that I can use to set up a ROP chain to populate rdx with 0xdeadcafebabebeef and r12 with the addr of ret2win to call the function. The problem is CALL qword ptr [R12 + RBX*0x8] needs an address which points to the start of ret2win. I dont know how to write the address ret2win to memory. DO you have any ideas?
